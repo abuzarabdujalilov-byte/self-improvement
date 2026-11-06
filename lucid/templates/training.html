@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Training · Lucid{% endblock %}
+{% block place %}Training{% endblock %}
+{% block body %}
+<p class="kicker">Checked on the server</p>
+<h1>Training</h1>
+<p class="lede">Five rounds at a time. A correct answer is recorded. Time is the time from the first round to the last.</p>
+<div class="list">
+  {% for kind in kinds %}
+  {% set row = stats.get(kind) %}
+  <article class="panel row">
+    <div>
+      <h2>{{ kind|capitalize }}</h2>
+      {% if row %}
+      <p>{{ row.correct }} / {{ row.total }} correct across {{ row.sessions }} session{{ '' if row.sessions == 1 else 's' }}.</p>
+      {% else %}
+      <p>No sessions yet.</p>
+      {% endif %}
+    </div>
+    <a class="button" href="{{ url_for('training_drill', kind=kind) }}">Start</a>
+  </article>
+  {% endfor %}
+</div>
+<p><a href="{{ url_for('logic') }}">Logic exercises</a> stay on their own page and still have a separate score.</p>
+{% endblock %}

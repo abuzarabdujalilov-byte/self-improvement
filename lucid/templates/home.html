@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Lucid{% endblock %}
+{% block place %}Home{% endblock %}
+{% block body %}
+<section class="hero">
+  <p class="seal">思考</p>
+  <div>
+    <p class="kicker">Chess · strategy · intellectual training</p>
+    <h1>See the position. Choose the line.</h1>
+    <p class="lede">Lucid is a place to play chess, train attention and reasoning, and study ideas carefully. The work is the point. Nothing here claims to raise an IQ score.</p>
+    <div class="actions">
+      {% if signed_in %}
+      <a class="button" href="{{ url_for('play_home') }}">Start Your Journey</a>
+      {% elif google_ready %}
+      <a class="button" href="{{ url_for('login') }}">Start Your Journey</a>
+      {% else %}
+      <a class="button" href="#platform">Start Your Journey</a>
+      {% endif %}
+      <a class="button quiet" href="#platform">Explore the Platform</a>
+    </div>
+    {% if not google_ready and not signed_in %}
+    <p class="note">Google sign-in needs GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET on this server, with the redirect set to http://127.0.0.1:3000/auth/callback.</p>
+    {% endif %}
+    {% if dev_login and not signed_in %}
+    <form method="post" action="{{ url_for('dev_login') }}">
+      <button class="button quiet" type="submit">Local test sign-in</button>
+    </form>
+    {% endif %}
+  </div>
+</section>
+<section class="band" id="platform">
+  <article>
+    <p class="kicker">Chess</p>
+    <h2>Games, puzzles, openings</h2>
+    <p>Play a full game against a search-based opponent, a friend on this device, or someone with the game link. Puzzle practice and opening lines stay beside the rated games.</p>
+  </article>
+  <article>
+    <p class="kicker">Training</p>
+    <h2>Memory, focus, calculation</h2>
+    <p>Digit span, a marked tile, a changed symbol, and mental arithmetic. Each round is checked. Accuracy and time are saved.</p>
+  </article>
+  <article>
+    <p class="kicker">Learn</p>
+    <h2>Lessons you can finish</h2>
+    <p>Short readings in logic, science, philosophy, mathematics, and psychology. Bookmark one, mark it finished, and come back to a related piece.</p>
+  </article>
+  <article>
+    <p class="kicker">University</p>
+    <h2>A separate study path</h2>
+    <p>Seminar reading, sources, and problem sets, plus a short plan you can tick off. It uses the same account and a quieter page of its own.</p>
+  </article>
+  <article>
+    <p class="kicker">Clubs</p>
+    <h2>A room with a rating list</h2>
+    <p>Create a club, write a description, and keep a discussion inside it. Members are ranked by the chess rating they earn in games.</p>
+  </article>
+  <article>
+    <p class="kicker">Assistant</p>
+    <h2>Your own Gemini key</h2>
+    <p>The red button stays on every page. Choose gemini-3.8-flash, gemini-3.6-flash, or gemini-3.5-flash-lite. The key is encrypted for your account and is never written into the page.</p>
+  </article>
+</section>
+{% endblock %}

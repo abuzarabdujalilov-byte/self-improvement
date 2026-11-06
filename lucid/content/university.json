@@ -1,0 +1,40 @@
+{
+  "materials": [
+    {
+      "id": "seminar",
+      "title": "Reading for a seminar",
+      "level": "First year",
+      "body": [
+        "Read once for the author's question, then again for the answer they defend. Mark the sentence where the conclusion appears.",
+        "Write three objections in your own words. An objection names a reason the conclusion might fail, not a feeling that the chapter was difficult.",
+        "Bring one passage you can explain without the book in front of you. That passage is the one you actually understood."
+      ]
+    },
+    {
+      "id": "sources",
+      "title": "Using sources",
+      "level": "Any year",
+      "body": [
+        "A source supports a claim you are making. It does not replace the claim. Say what you are using it to show.",
+        "Quote a sentence when the wording matters. Paraphrase when the point matters more than the wording, and still name the source.",
+        "If two sources disagree, describe the disagreement before you take a side. The reader should see what is in dispute."
+      ]
+    },
+    {
+      "id": "problem-sets",
+      "title": "Problem sets",
+      "level": "Any year",
+      "body": [
+        "Start with the part you can do. A complete easy part is more useful than a blank page waiting for a perfect method.",
+        "Write the definition you are using before the calculation. Many wrong answers come from solving a nearby question.",
+        "When you check an answer, check the units, the sign, and whether the result is a possible size. Those three catches find different mistakes."
+      ]
+    }
+  ],
+  "plan": [
+    {"id": "week-map", "text": "Write the deadlines you can already see for the next two weeks."},
+    {"id": "one-source", "text": "Read one assigned source and write the author's conclusion in a sentence."},
+    {"id": "question", "text": "Bring one precise question to a class or a discussion."},
+    {"id": "review", "text": "Look back at one marked piece of work and name the comment you will use next time."}
+  ]
+}

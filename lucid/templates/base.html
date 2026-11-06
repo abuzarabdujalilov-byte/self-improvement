@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Lucid{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Shippori+Mincho:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/lucid.css') }}" />
+</head>
+<body data-key="{{ 'yes' if has_key else 'no' }}" data-place="{% block place %}Lucid{% endblock %}">
+  <header class="top">
+    <a class="mark" href="{{ url_for('home') }}">Luc<span>i</span>d</a>
+    {% if g.user and g.user.age_confirmed %}
+    <nav aria-label="Main">
+      <a href="{{ url_for('home') }}">Home</a>
+      <div class="menu"><span>Chess</span>
+        <div class="menu-panel">
+          <a href="{{ url_for('play_home') }}">Play</a>
+          <a href="{{ url_for('chess') }}">Puzzles</a>
+          <a href="{{ url_for('play_home') }}#openings">Openings</a>
+        </div>
+      </div>
+      <div class="menu"><span>Training</span>
+        <div class="menu-panel">
+          <a href="{{ url_for('training_home') }}">Overview</a>
+          <a href="{{ url_for('logic') }}">Logic</a>
+          <a href="{{ url_for('training_drill', kind='memory') }}">Memory</a>
+          <a href="{{ url_for('training_drill', kind='focus') }}">Focus</a>
+          <a href="{{ url_for('training_drill', kind='observation') }}">Observation</a>
+          <a href="{{ url_for('training_drill', kind='arithmetic') }}">Arithmetic</a>
+        </div>
+      </div>
+      <a href="{{ url_for('learn') }}">Learn</a>
+      <a href="{{ url_for('university_home') }}">University</a>
+      <a href="{{ url_for('clubs') }}">Clubs</a>
+      <a href="{{ url_for('competitions') }}">Competitions</a>
+      <div class="menu"><span>Profile</span>
+        <div class="menu-panel">
+          <a href="{{ url_for('profile') }}">{{ g.user.username }}</a>
+          <a href="{{ url_for('dashboard') }}">Progress</a>
+          <a href="{{ url_for('discussions') }}">Discussions</a>
+          <a href="{{ url_for('account') }}">API key</a>
+          <form method="post" action="{{ url_for('logout') }}"><button class="text-button" type="submit">Sign out</button></form>
+        </div>
+      </div>
+    </nav>
+    {% elif g.user %}
+    <form method="post" action="{{ url_for('logout') }}"><button class="text-button" type="submit">Sign out</button></form>
+    {% endif %}
+  </header>
+  <main class="page">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<div class="flash" role="status">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block body %}{% endblock %}
+  </main>
+  {% if g.user and g.user.age_confirmed %}
+  <button class="ai-button" id="ai-toggle" type="button" aria-label="Open the AI assistant">AI</button>
+  <div class="modal" id="ai-modal" hidden>
+    <h2>AI Support</h2>
+    <p>AI Support is currently unavailable. Please configure your Gemini API key to unlock your personal AI assistant.</p>
+    <a class="button" href="{{ url_for('account') }}">Configure API Key</a>
+  </div>
+  <aside class="dock" id="ai-panel" hidden>
+    <div class="row"><h2>Assistant</h2><a href="{{ url_for('assistant') }}">Open full page</a></div>
+    {% for message in ai_messages %}
+    <div class="bubble"><span>{{ message.role }}</span><p>{{ message.text }}</p></div>
+    {% endfor %}
+    <form method="post" action="{{ url_for('assistant_send') }}">
+      <input type="hidden" name="next" value="{{ request.path }}" />
+      <input type="hidden" name="place" value="{{ self.place() }}" />
+      <label for="ai-text">Message</label>
+      <textarea id="ai-text" name="text" rows="3"></textarea>
+      <button class="button" type="submit">Send</button>
+    </form>
+  </aside>
+  <script src="{{ url_for('static', filename='js/dock.js') }}"></script>
+  {% endif %}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

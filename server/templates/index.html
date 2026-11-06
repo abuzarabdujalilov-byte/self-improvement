@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Support Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,550;6..72,650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta name="description" content="An open Gemini conversation for self-improvement, study, and university in Britain. You use your own API key." />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="logo" href="/">AI Support Agent</a>
+      <nav class="nav-links" aria-label="Page">
+        <a href="#benefits">Benefits</a>
+        <a href="#models">Models</a>
+        <a href="#key">Your key</a>
+        <a class="btn" href="/chat">Get started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap hero">
+      <div>
+        <p class="kicker">Self-improvement, study, and university in Britain</p>
+        <h1>Ask anything. Get a real answer from Gemini.</h1>
+        <p class="lede">AI Support Agent is an open conversation, not a list of fixed replies. Connect your own Google AI Studio key, choose a Gemini model, and talk through revision, university applications, habits, or any other question.</p>
+        <div class="actions">
+          <a class="btn" href="/chat">Get started</a>
+          <a class="btn secondary" href="#models">See the models</a>
+        </div>
+      </div>
+      <aside class="hero-aside">
+        <strong>Your key. Your model.</strong>
+        <p>There is no shared API key. Gemini 3.8 Flash, Gemini 3.6 Flash, and Gemini 3.5 Flash-Lite are the models you can choose. The one you select is the one that answers.</p>
+      </aside>
+    </div>
+
+    <section id="benefits">
+      <div class="wrap">
+        <h2>What you can do</h2>
+        <div class="grid benefits">
+          <article class="card">
+            <h3>Ask in your own words</h3>
+            <p>Type a question or an instruction. Nothing is limited to a menu of topics.</p>
+          </article>
+          <article class="card">
+            <h3>Keep the thread</h3>
+            <p>Follow-up messages stay in the conversation, so you can refine a plan or a draft.</p>
+          </article>
+          <article class="card">
+            <h3>Pick the model</h3>
+            <p>Move between a faster, lower-cost model and a stronger one. The next reply uses the model you picked.</p>
+          </article>
+          <article class="card">
+            <h3>Bring your own key</h3>
+            <p>Usage stays on your Google account. You can remove the key whenever you want.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="models">
+      <div class="wrap">
+        <h2>Choose a Gemini model</h2>
+        <p>Names and IDs match Google’s Gemini API as of {{ verified_on }}. Prices are the Standard paid tier, per 1 million tokens, and can change. Confirm them on <a href="https://ai.google.dev/gemini-api/docs/pricing">Google’s pricing page</a>. A free tier is available.</p>
+        <div class="grid models">
+          {% for model in models %}
+          <article class="card {% if model.id == default_model_id %}default{% endif %}">
+            <span class="tag">{{ model.tag }}</span>
+            <h3>{{ model.label }}</h3>
+            <p class="id">{{ model.id }}</p>
+            <p>{{ model.blurb }}</p>
+            <p>{{ model.price }}</p>
+          </article>
+          {% endfor %}
+        </div>
+        <p>Gemini 3.5 Flash (<span class="id">gemini-3.5-flash</span>) is deprecated and is not offered. Google routes that old ID to Gemini 3.6 Flash.</p>
+      </div>
+    </section>
+
+    <section id="key">
+      <div class="wrap split">
+        <div>
+          <h2>Connect your own API key</h2>
+          <p>Each person uses their own key from Google AI Studio. The assistant does not keep one key for everyone.</p>
+          <ol class="steps">
+            <li>Sign in at <a href="https://aistudio.google.com/">Google AI Studio</a>.</li>
+            <li>Open <a href="https://aistudio.google.com/app/apikey">the API keys page</a> and accept the terms if asked.</li>
+            <li>Copy the key already there, or choose <strong>Create API key</strong> and put it in a project you can recognise.</li>
+            <li>Paste it into AI Support Agent, pick a model, and start talking.</li>
+          </ol>
+          <p>A saved key is encrypted on this server and shown only by its last four characters. You can instead keep it for this visit only, in memory, and leave nothing on disk. Delete the key here, or delete it in AI Studio, whenever you want.</p>
+          <div class="actions">
+            <a class="btn" href="/chat">Connect your key</a>
+            <a class="btn secondary" href="https://aistudio.google.com/app/apikey">Get an API key</a>
+          </div>
+        </div>
+        <div class="transcript" aria-label="Example conversation">
+          <p class="kicker">Example only · not a live reply</p>
+          <div class="bubble you">
+            <span class="who">You</span>
+            <p>I have four weeks until mock exams and I keep rewriting notes instead of practising. Can you give me a weekly plan?</p>
+          </div>
+          <div class="bubble agent">
+            <span class="who">AI Support Agent · gemini-3.6-flash</span>
+            <p>Use notes only to fill gaps. Spend most of each session on exam-style questions, then review what you missed. Week 1: one subject a day, 25 minutes of questions and 10 minutes correcting them. I can turn that into a four-week timetable if you tell me your subjects.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Ready when you are</h2>
+        <p>Get a key, choose Gemini 3.8 Flash, 3.6 Flash, or 3.5 Flash-Lite, and ask the question you actually have.</p>
+        <a class="btn" href="/chat">Get started</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <strong>AI Support Agent</strong>
+      <p>Model IDs checked on {{ verified_on }} against the Gemini API models, deprecations, and pricing pages.</p>
+    </div>
+  </footer>
+</body>
+</html>

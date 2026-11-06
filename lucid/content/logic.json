@@ -1,0 +1,76 @@
+{
+  "items": [
+    {"id": "s1", "kind": "short", "difficulty": 1, "prompt": "What comes next in this sequence? 2, 4, 8, 16, …", "answers": ["32"]},
+    {"id": "s2", "kind": "short", "difficulty": 1, "prompt": "All bloops are razzes. All razzes are lazzes. Does it follow that all bloops are lazzes?", "answers": ["yes"]},
+    {"id": "s3", "kind": "short", "difficulty": 1, "prompt": "If it rains, the ground is wet. The ground is not wet. Did it rain?", "answers": ["no"]},
+    {"id": "s4", "kind": "short", "difficulty": 1, "prompt": "Which number does not belong with the others? 2, 3, 5, 7, 9", "answers": ["9"]},
+    {"id": "s5", "kind": "short", "difficulty": 1, "prompt": "A bat and a ball cost £1.10 together. The bat costs £1 more than the ball. How much does the ball cost, in pounds?", "answers": ["0.05", "£0.05", "5p", "0.05 pounds"]},
+    {"id": "s6", "kind": "short", "difficulty": 1, "prompt": "What is the next letter? A, C, E, G, …", "answers": ["i"]},
+    {"id": "s7", "kind": "short", "difficulty": 1, "prompt": "A lily pad doubles in size every day. It covers the whole lake on day 20. On which day is the lake half covered?", "answers": ["19", "day 19"]},
+    {"id": "s8", "kind": "short", "difficulty": 2, "prompt": "What comes next? 1, 1, 2, 3, 5, 8, …", "answers": ["13"]},
+    {"id": "s9", "kind": "short", "difficulty": 2, "prompt": "Five people meet, and each person shakes hands once with every other person. How many handshakes is that?", "answers": ["10"]},
+    {"id": "s10", "kind": "short", "difficulty": 2, "prompt": "Some artists are painters. All painters use brushes. Does it follow that some artists use brushes?", "answers": ["yes"]},
+    {"id": "s11", "kind": "short", "difficulty": 2, "prompt": "What comes next? 3, 6, 11, 18, 27, …", "answers": ["38"]},
+    {"id": "s12", "kind": "short", "difficulty": 2, "prompt": "A clock shows exactly 3:00. What is the angle between the hour and minute hands, in degrees?", "answers": ["90", "90 degrees"]},
+    {"id": "s13", "kind": "short", "difficulty": 2, "prompt": "Two workers take two hours to dig two holes. Working at the same pace, how many hours do four workers need to dig four holes?", "answers": ["2", "2 hours"]},
+    {"id": "s14", "kind": "short", "difficulty": 2, "prompt": "Three boxes are labelled Apples, Oranges, and Apples & Oranges. Every label is wrong. You take one fruit from the box labelled Apples & Oranges, and it is an apple. What fruit is actually in that box?", "answers": ["apples", "only apples", "apple"]},
+    {"id": "s15", "kind": "short", "difficulty": 3, "prompt": "Person A says, “We are both knaves.” Knaves always lie, and knights always tell the truth. Is A a knight or a knave?", "answers": ["knave", "a knave"]},
+    {"id": "s16", "kind": "short", "difficulty": 3, "prompt": "How many squares of any size are there on an 8×8 chessboard?", "answers": ["204"]},
+    {"id": "s17", "kind": "short", "difficulty": 3, "prompt": "Four cards show A, B, 2, and 3. The rule says: if a card has a vowel on one side, it has an even number on the other. Which cards must you turn over to test the rule? Name them.", "answers": ["a and 3", "a, 3", "3 and a", "the a and the 3"]},
+    {"id": "s18", "kind": "short", "difficulty": 3, "prompt": "A drawer has two red socks and two blue socks. You take socks out one at a time, without looking. How many socks must you take to be certain you have a matching pair?", "answers": ["3"]},
+    {"id": "s19", "kind": "short", "difficulty": 3, "prompt": "All of the puzzle books on a shelf are logic books. This book is a logic book. Does it follow that this book is on that shelf?", "answers": ["no"]},
+    {"id": "s20", "kind": "short", "difficulty": 3, "prompt": "What comes next? 1, 4, 9, 16, 25, …", "answers": ["36"]},
+    {"id": "s21", "kind": "short", "difficulty": 1, "prompt": "If the statement “every multiple of 4 is even” is true, is 6 a multiple of 4?", "answers": ["no"]},
+    {"id": "s22", "kind": "short", "difficulty": 2, "prompt": "A train leaves at noon and travels at a steady speed. A second train leaves one hour later, on the same track, going twice as fast. How many hours after noon does the second train catch the first?", "answers": ["2", "2 hours"]},
+    {"id": "s23", "kind": "short", "difficulty": 3, "prompt": "You meet two people. One always tells the truth, and one always lies. You may ask one question to one person. You need to find the road to the library, and one road is wrong. What single question works? There are several wordings. A accepted one is: you point to a road and ask, “Would the other person say this road leads to the library?” If the answer is yes, do you take that road?", "answers": ["no"]},
+    {"id": "s24", "kind": "short", "difficulty": 1, "prompt": "Which shape continues the count? One line, two lines, three lines. How many lines come next if the count keeps rising by one?", "answers": ["4", "four"]},
+    {
+      "id": "l1",
+      "kind": "long",
+      "prompt": "A school says its chess club raises exam results, because club members have higher grades than other students. What would you need to know before accepting that the club caused the higher grades? Write your reasoning.",
+      "coach_notes": "Look for whether the student separates correlation from cause, asks who chooses to join, and mentions prior ability or study habits. There is no single required sentence."
+    },
+    {
+      "id": "l2",
+      "kind": "long",
+      "prompt": "You are behind by a piece in a chess game, but your opponent’s king is less safe than yours. Should you trade pieces? Explain the choice in your own words.",
+      "coach_notes": "Trading usually favours the side with more material. The side that is behind often wants activity and complications instead. Accept a well-argued exception."
+    },
+    {
+      "id": "l3",
+      "kind": "long",
+      "prompt": "A friend says, “It rained on the last three Mondays, so Mondays are rainier than other days.” How would you test that claim?",
+      "coach_notes": "Look for sample size, a comparison with other days, and a definition of rainier. Do not require one formula."
+    },
+    {
+      "id": "l4",
+      "kind": "long",
+      "prompt": "Is a puzzle you solve quickly better practice than one you struggle with? Argue the side you find stronger, and mention the best point on the other side.",
+      "coach_notes": "Both sides can be reasonable. Strong answers mention effort, memory, and confidence rather than declaring one side always right."
+    },
+    {
+      "id": "l5",
+      "kind": "long",
+      "prompt": "Someone quotes a famous person as the only reason to accept a claim. What is weak about that move, and when could the person’s knowledge still matter?",
+      "coach_notes": "Look for the difference between fame and relevant expertise. The student does not need the name of a fallacy."
+    },
+    {
+      "id": "l6",
+      "kind": "long",
+      "prompt": "You have one hour. You can spend it on ten easy puzzles or two hard ones. How would you decide, for your own practice tonight?",
+      "coach_notes": "Look for a reason tied to what the student wants to improve. Either choice can be sound if they explain the trade."
+    },
+    {
+      "id": "l7",
+      "kind": "long",
+      "prompt": "A headline says a new study proves that puzzles make people smarter. You cannot read the study. What questions would you still ask?",
+      "coach_notes": "Look for who was studied, what was compared, how large the change was, and whether the headline overclaims. No single question is mandatory."
+    },
+    {
+      "id": "l8",
+      "kind": "long",
+      "prompt": "In a puzzle you got wrong, the right move wins material but leaves your king open for one move. Was the right move still the move you should learn? Explain your view.",
+      "coach_notes": "The puzzle’s solution is the move that meets the puzzle’s goal. A thoughtful student may also discuss practical risk. Help them separate the puzzle task from a different practical goal."
+    }
+  ]
+}

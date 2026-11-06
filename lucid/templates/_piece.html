@@ -1,0 +1,13 @@
+{% macro glyph(symbol) %}
+{% if symbol %}
+<svg class="glyph {{ 'white' if symbol.isupper() else 'black' }}" viewBox="0 0 40 40" aria-hidden="true">
+  {% set kind = symbol.lower() %}
+  {% if kind == 'k' %}<path d="M20 6v8M16 10h8M12 28h16l-2 6H14zM16 18h8l2 8H14z"/>{% endif %}
+  {% if kind == 'q' %}<path d="M8 16l4 14h16l4-14-6 4-6-8-6 8zM12 32h16v3H12z"/>{% endif %}
+  {% if kind == 'r' %}<path d="M10 14h4v-4h4v4h4v-4h4v4h4v18H10z"/>{% endif %}
+  {% if kind == 'b' %}<path d="M20 6c6 6 8 10 8 16a8 8 0 1 1-16 0c0-6 2-10 8-16z"/>{% endif %}
+  {% if kind == 'n' %}<path d="M28 32H12l2-6 4-2-6-8 2-8 6 2 2 6 6 4z"/>{% endif %}
+  {% if kind == 'p' %}<circle cx="20" cy="14" r="5"/><path d="M14 32h12l-2-8h-8z"/>{% endif %}
+</svg>
+{% endif %}
+{% endmacro %}

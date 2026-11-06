@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Clubs · Lucid{% endblock %}
+{% block place %}Clubs{% endblock %}
+{% block body %}
+<p class="kicker">Clubs</p>
+<h1>Find a room.</h1>
+<form class="panel" method="post">
+  <label for="name">Name</label>
+  <input id="name" name="name" maxlength="60" required />
+  <label for="description">Description</label>
+  <textarea id="description" name="description" rows="3" required></textarea>
+  <button class="button" type="submit">Create club</button>
+</form>
+<div class="list">
+  {% for club in clubs %}
+  <article class="panel row">
+    <div>
+      <h2><a href="{{ url_for('club', slug=club.slug) }}">{{ club.name }}</a></h2>
+      <p>{{ club.description }}</p>
+      <p class="meta">{{ club.members }} member{{ '' if club.members == 1 else 's' }}</p>
+    </div>
+  </article>
+  {% else %}
+  <p>No clubs yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

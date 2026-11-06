@@ -1,0 +1,62 @@
+[
+  {
+    "id": "arguments",
+    "category": "Logic",
+    "level": "Beginner",
+    "title": "What makes an argument",
+    "minutes": 5,
+    "body": [
+      "An argument is a set of reasons offered for a conclusion. The reasons are premises. A conclusion can be interesting and still badly supported.",
+      "Ask two separate questions. Do the premises support the conclusion if they are true? Are the premises actually true? The first question is about structure. The second is about evidence.",
+      "A valid structure can still use a false premise. An invalid structure can contain true sentences and still fail to prove its conclusion. Keep the two checks apart."
+    ]
+  },
+  {
+    "id": "working-memory",
+    "category": "Psychology",
+    "level": "Beginner",
+    "title": "Working memory is a workspace",
+    "minutes": 6,
+    "body": [
+      "Working memory is the small amount of information you can hold and use at the same time. It is not the same thing as long-term knowledge.",
+      "A chess calculation and a mental sum both load this workspace. When it is full, a new detail pushes an older one out. Writing a move down, or breaking a sum into parts, is a way of spending the workspace carefully.",
+      "Practice can make a particular kind of task more familiar. Familiar patterns take less space. That is a training effect, not a change in a single intelligence score."
+    ]
+  },
+  {
+    "id": "scientific-claim",
+    "category": "Science",
+    "level": "Intermediate",
+    "title": "A scientific claim needs a test",
+    "minutes": 6,
+    "body": [
+      "A scientific claim says something that could turn out to be false. If no observation could count against it, it is not yet a testable claim.",
+      "A fair test compares conditions that differ in the thing being studied and stay alike in the things that could confuse the result. One vivid story is not that comparison.",
+      "When you read a result, ask what was measured, what was compared, and how large the difference was. The label on the article is not the evidence."
+    ]
+  },
+  {
+    "id": "thought-experiment",
+    "category": "Philosophy",
+    "level": "Intermediate",
+    "title": "Thought experiments are tools",
+    "minutes": 7,
+    "body": [
+      "A thought experiment asks you to imagine a case so that a principle becomes easier to see. It does not prove a fact about the physical world by itself.",
+      "The useful question is which assumption the case is pressing on. If two people accept the story and still reach different conclusions, name the assumption they do not share.",
+      "Treat the story as a lens, then go back to the principle in ordinary language. A memorable picture is not a substitute for the argument."
+    ]
+  },
+  {
+    "id": "proof-and-example",
+    "category": "Mathematics",
+    "level": "Advanced",
+    "title": "An example is not a proof",
+    "minutes": 6,
+    "body": [
+      "One example can show that a general claim is false. No list of examples, however long, shows that a claim about every case is true.",
+      "A proof has to cover the remaining cases, often by using the definition rather than another number. Check each step against the previous one.",
+      "When a step feels obvious, write the reason anyway. The missing reason is often the place where the argument only works for the example you had in mind."
+    ]
+  }
+]

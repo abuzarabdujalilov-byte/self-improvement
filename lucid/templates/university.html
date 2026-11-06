@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}University · Lucid{% endblock %}
+{% block place %}University{% endblock %}
+{% block body %}
+<div class="university">
+<p class="kicker">University path</p>
+<h1>Study with a clearer brief.</h1>
+<p class="lede">This path is for university work: reading, sources, and problem sets. It uses your Lucid account. It does not replace a course.</p>
+<section class="list">
+  {% for item in materials %}
+  <article class="panel">
+    <p class="kicker">{{ item.level }}</p>
+    <h2>{{ item.title }}</h2>
+    {% for paragraph in item.body %}<p>{{ paragraph }}</p>{% endfor %}
+  </article>
+  {% endfor %}
+</section>
+<section class="panel">
+  <h2>Study plan</h2>
+  {% for item in plan %}
+  <form method="post" action="{{ url_for('university_plan') }}">
+    <input type="hidden" name="item_id" value="{{ item.id }}" />
+    <button class="text-button" type="submit">{{ '✓' if item.id in done else '○' }} {{ item.text }}</button>
+  </form>
+  {% endfor %}
+</section>
+</div>
+{% endblock %}

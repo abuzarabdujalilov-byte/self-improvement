@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Assistant · Lucid{% endblock %}
+{% block body %}
+<section class="chat">
+  <header class="chat-head">
+    <div>
+      <p class="kicker">Gemini · {{ key.model_id }}</p>
+      <h1>Ask anything.</h1>
+    </div>
+    <form method="post" action="{{ url_for('assistant_reset') }}">
+      <button class="button quiet" type="submit">New conversation</button>
+    </form>
+  </header>
+  {% if context %}<p class="note">The assistant can see your current exercise. Start a new conversation to clear that.</p>{% endif %}
+  <div class="thread" aria-live="polite">
+    {% for message in messages %}
+    <article class="bubble {{ message.role }}">
+      <span>{{ 'You' if message.role == 'user' else 'Lucid' }}</span>
+      <p>{{ message.text }}</p>
+    </article>
+    {% else %}
+    <p class="note">Ask about the exercise you just tried, or about science, philosophy, or anything else. Nothing here is a fixed menu of questions.</p>
+    {% endfor %}
+  </div>
+  <form method="post" class="composer" id="composer">
+    <label for="text">Message</label>
+    <textarea id="text" name="text" rows="4" maxlength="8000" required>{{ draft }}</textarea>
+    <button class="button" type="submit">Send</button>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/assistant.js') }}"></script>{% endblock %}

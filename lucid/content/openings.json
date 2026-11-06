@@ -1,0 +1,51 @@
+[
+  {
+    "id": "italian",
+    "name": "Italian Game",
+    "level": "Beginner",
+    "category": "Open games",
+    "idea": "Develop the bishop to c4, aim at f7, and bring the knights out before attacking.",
+    "mistakes": "Pushing too many pawns before the pieces are developed, or moving the same piece twice without a reason.",
+    "line": [
+      {"uci": "e2e4", "san": "e4", "note": "White claims space in the centre."},
+      {"uci": "e7e5", "san": "e5", "note": "Black answers in the centre."},
+      {"uci": "g1f3", "san": "Nf3", "note": "The knight attacks e5 and prepares castling."},
+      {"uci": "b8c6", "san": "Nc6", "note": "Black defends the pawn."},
+      {"uci": "f1c4", "san": "Bc4", "note": "The Italian bishop looks toward f7."},
+      {"uci": "g8f6", "san": "Nf6", "note": "Black develops and attacks e4."}
+    ]
+  },
+  {
+    "id": "queens-gambit",
+    "name": "Queen's Gambit",
+    "level": "Intermediate",
+    "category": "Queen's pawn",
+    "idea": "Offer the c-pawn to draw Black's pawn off d5, then take the centre back.",
+    "mistakes": "Treating the gambit as a sacrifice you must win back on the next move, or leaving the c8 bishop shut in.",
+    "line": [
+      {"uci": "d2d4", "san": "d4", "note": "White occupies d4."},
+      {"uci": "d7d5", "san": "d5", "note": "Black meets it directly."},
+      {"uci": "c2c4", "san": "c4", "note": "The gambit challenges d5."},
+      {"uci": "e7e6", "san": "e6", "note": "The declined line keeps a pawn on d5 and opens a path for the dark bishop."},
+      {"uci": "b1c3", "san": "Nc3", "note": "White adds pressure to d5."},
+      {"uci": "g8f6", "san": "Nf6", "note": "Black develops before deciding how to free the light bishop."}
+    ]
+  },
+  {
+    "id": "sicilian",
+    "name": "Sicilian Defence",
+    "level": "Advanced",
+    "category": "Semi-open",
+    "idea": "Black fights for the c-file and an asymmetrical pawn structure instead of copying White.",
+    "mistakes": "Opening the position before the king is safe, or grabbing a pawn on c3 without checking the tactics.",
+    "line": [
+      {"uci": "e2e4", "san": "e4", "note": "White begins with the king's pawn."},
+      {"uci": "c7c5", "san": "c5", "note": "Black fights for d4 from the flank."},
+      {"uci": "g1f3", "san": "Nf3", "note": "White prepares d4."},
+      {"uci": "d7d6", "san": "d6", "note": "Black controls e5 and opens the light bishop."},
+      {"uci": "d2d4", "san": "d4", "note": "White opens the centre."},
+      {"uci": "c5d4", "san": "cxd4", "note": "Black accepts the exchange."},
+      {"uci": "f3d4", "san": "Nxd4", "note": "The knight recaptures and stands in the centre."}
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Age · Lucid{% endblock %}
+{% block body %}
+<section class="panel narrow">
+  <p class="kicker">Before practice</p>
+  <h1>Lucid is for students aged 16 and over.</h1>
+  <p>Google sign-in does not tell Lucid your birthday. Confirm your age to continue. If you are under 16, this version of the site is not for you.</p>
+  <form method="post">
+    <label class="check"><input type="checkbox" name="confirm" value="yes" required /> I am 16 or older.</label>
+    <button class="button" type="submit">Continue</button>
+  </form>
+</section>
+{% endblock %}

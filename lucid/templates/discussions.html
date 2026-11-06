@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Discussions · Lucid{% endblock %}
+{% block place %}Discussions{% endblock %}
+{% block body %}
+<p class="kicker">Discussions</p>
+<h1>Ask in public.</h1>
+<nav class="actions">
+  <a href="{{ url_for('discussions') }}">All</a>
+  {% for item in categories %}<a href="{{ url_for('discussions', category=item) }}">{{ item }}</a>{% endfor %}
+</nav>
+<form class="panel" method="post">
+  <label for="category">Category</label>
+  <select id="category" name="category">
+    {% for item in categories %}<option value="{{ item }}" {{ 'selected' if item == category else '' }}>{{ item }}</option>{% endfor %}
+  </select>
+  <label for="title">Title</label>
+  <input id="title" name="title" required />
+  <label for="body">Message</label>
+  <textarea id="body" name="body" rows="5" required></textarea>
+  <button class="button" type="submit">Post</button>
+</form>
+<div class="list">
+  {% for thread in threads %}
+  <article class="panel">
+    <h2><a href="{{ url_for('discussion', thread_id=thread.id) }}">{{ thread.title }}</a></h2>
+    <p class="meta">{{ thread.category }} · {{ thread.username }} · {{ thread.replies }} replies · {{ thread.likes }} likes</p>
+  </article>
+  {% else %}
+  <p>No discussions in this category yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

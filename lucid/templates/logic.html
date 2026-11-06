@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Logic · Lucid{% endblock %}
+{% block body %}
+{% if not item %}
+<section class="panel"><h1>No logic exercise is available.</h1></section>
+{% else %}
+<section class="practice">
+  <article class="panel">
+    <p class="kicker">{{ 'Short challenge' if item.kind == 'short' else 'Longer problem' }}{% if item.difficulty %} · band {{ item.difficulty }}{% endif %}</p>
+    <h1>{{ item.prompt }}</h1>
+    {% if logic_session.status == 'active' %}
+    <form method="post" action="{{ url_for('logic_answer') }}" class="stack">
+      <label for="answer">{{ 'Your answer' if item.kind == 'short' else 'Your reasoning' }}</label>
+      {% if item.kind == 'short' %}
+      <input id="answer" name="answer" autocomplete="off" required />
+      {% else %}
+      <textarea id="answer" name="answer" rows="8" required></textarea>
+      {% endif %}
+      <button class="button" type="submit">{{ 'Check' if item.kind == 'short' else 'Send to the assistant' }}</button>
+    </form>
+    {% else %}
+    {% if reply %}<div class="reply"><p class="kicker">Assistant</p><p>{{ reply }}</p></div>{% endif %}
+    <form method="post" action="{{ url_for('logic_next') }}">
+      <button class="button" type="submit">Next exercise</button>
+    </form>
+    {% endif %}
+    <form method="post" action="{{ url_for('use_context') }}">
+      <input type="hidden" name="kind" value="logic" />
+      <input type="hidden" name="item_id" value="{{ item.id }}" />
+      <button class="button quiet" type="submit">Ask a follow-up</button>
+    </form>
+  </article>
+</section>
+{% endif %}
+{% endblock %}

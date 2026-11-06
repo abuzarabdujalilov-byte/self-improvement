@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Competitions · Lucid{% endblock %}
+{% block place %}Competitions{% endblock %}
+{% block body %}
+<p class="kicker">Results</p>
+<h1>This week</h1>
+<p>A win in a rated game is 3 points, a draw is 1, and a finished training session is 1. The list uses the last seven days. Pass-and-play and imported games are left out.</p>
+<section class="two">
+  <article class="panel">
+    <h2>Weekly board</h2>
+    <ol class="moves">
+      {% for row in weekly %}
+      <li><a href="{{ url_for('public_profile', username=row.user.username) }}">{{ row.user.username }}</a><span>{{ row.points }}</span></li>
+      {% else %}
+      <li>No results this week.</li>
+      {% endfor %}
+    </ol>
+  </article>
+  <article class="panel">
+    <h2>Chess rating</h2>
+    <ol class="moves">
+      {% for row in elo %}
+      <li><a href="{{ url_for('public_profile', username=row.username) }}">{{ row.username }}</a><span>{{ row.chess_elo }}</span></li>
+      {% endfor %}
+    </ol>
+    <p>The rating list is all-time. The weekly board covers the last seven days.</p>
+  </article>
+</section>
+{% endblock %}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat · AI Support Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,550;6..72,650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+</head>
+<body class="chat-body">
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="logo" href="/">AI Support Agent</a>
+      <nav class="nav-links" aria-label="Chat">
+        <a href="/#key">How keys work</a>
+        <a class="btn" href="https://aistudio.google.com/app/apikey">Get an API key</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="chat-shell wrap">
+    <aside class="panel" aria-label="Connection and model">
+      <section id="key-panel">
+        <h2>Your API key</h2>
+        <p id="key-summary" class="muted">Connect your own Google AI Studio key. This app has no shared key.</p>
+        <form id="key-form">
+          <label for="api-key">Google AI Studio API key</label>
+          <input id="api-key" name="apiKey" type="password" autocomplete="off" spellcheck="false" required />
+          <label class="check" for="remember">
+            <input id="remember" name="remember" type="checkbox" />
+            Remember the key on this server, encrypted
+          </label>
+          <p class="fine">Leave this unticked to keep the key in memory for this server session only. It is not saved in the browser.</p>
+          <button class="btn" id="save-key" type="submit">Check key and continue</button>
+          <p id="key-error" class="form-error" role="alert" hidden></p>
+        </form>
+        <div id="key-ready" hidden>
+          <p>Connected with a key ending in <strong id="fingerprint"></strong>.</p>
+          <p id="storage-mode" class="fine"></p>
+          <button class="btn secondary" id="remove-key" type="button">Remove key</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Model</h2>
+        <p class="fine">The selected model answers your next message. Checked {{ verified_on }}.</p>
+        <fieldset id="model-picker">
+          <legend class="sr-only">Gemini model</legend>
+        </fieldset>
+        <p id="model-error" class="form-error" role="alert" hidden></p>
+      </section>
+
+      <button class="btn secondary" id="new-chat" type="button">New conversation</button>
+    </aside>
+
+    <section class="conversation" aria-label="Conversation">
+      <div id="thread" class="thread" aria-live="polite"></div>
+      <p id="history-note" class="fine history-note" hidden>Only the latest 40 messages are sent to Gemini. The full thread stays on screen.</p>
+      <form id="composer">
+        <label for="message">Message</label>
+        <textarea id="message" name="text" rows="3" maxlength="8000" placeholder="Ask anything, or give the assistant an instruction" disabled></textarea>
+        <div class="composer-row">
+          <p id="chat-error" class="form-error" role="alert" hidden></p>
+          <button class="btn" id="send" type="submit" disabled>Send</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>

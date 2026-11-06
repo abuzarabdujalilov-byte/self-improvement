@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}{{ kind|capitalize }} · Lucid{% endblock %}
+{% block place %}Training {{ kind }}{% endblock %}
+{% block body %}
+<p class="kicker">Training</p>
+<h1>{{ kind|capitalize }}</h1>
+{% if done %}
+<p>You scored {{ correct }} out of {{ total }}.</p>
+<form method="post" action="{{ url_for('training_again', kind=kind) }}"><button class="button" type="submit">Again</button></form>
+{% elif kind == 'memory' %}
+<p>Remember the digits. They stay on screen for a few seconds.</p>
+<p class="memory-prompt" id="memory">{{ round.prompt }}</p>
+<form method="post">
+  <label for="answer">What were the digits?</label>
+  <input id="answer" name="answer" autocomplete="off" />
+  <button class="button" type="submit">Check</button>
+</form>
+{% elif kind == 'focus' %}
+<p>Click the red tile. Round {{ index + 1 }} of {{ total }}.</p>
+<form method="post" class="grid-16">
+  {% for n in range(round.size) %}
+  <button class="tile {{ 'target' if n|string == round.answer else '' }}" name="answer" value="{{ n }}" type="submit" aria-label="Tile {{ n + 1 }}"></button>
+  {% endfor %}
+</form>
+{% elif kind == 'observation' %}
+<p>Which position changed? Round {{ index + 1 }} of {{ total }}.</p>
+<div class="obs" aria-hidden="true">{% for mark in round.left %}<div class="mark-cell">{{ mark }}</div>{% endfor %}</div>
+<form method="post" class="obs">
+  {% for mark in round.right %}
+  <button class="mark-cell" name="answer" value="{{ loop.index0 }}" type="submit">{{ mark }}</button>
+  {% endfor %}
+</form>
+{% else %}
+<p>Round {{ index + 1 }} of {{ total }}.</p>
+<p class="score">{{ round.prompt }}</p>
+<form method="post">
+  <label for="answer">Answer</label>
+  <input id="answer" name="answer" inputmode="numeric" autocomplete="off" />
+  <button class="button" type="submit">Check</button>
+</form>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+{% if not done and kind == 'memory' %}
+<script src="{{ url_for('static', filename='js/memory.js') }}"></script>
+{% endif %}
+{% endblock %}

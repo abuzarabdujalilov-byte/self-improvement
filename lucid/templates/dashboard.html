@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Progress · Lucid{% endblock %}
+{% block body %}
+<section class="scores">
+  <article>
+    <p class="kicker">Chess</p>
+    <p class="score">{{ summary.chess_score }}</p>
+    <p>The puzzle difficulty you are working at. It rises after a solve and falls after a miss.</p>
+    <p class="meta">{{ summary.chess_done }} puzzle{{ '' if summary.chess_done == 1 else 's' }} finished</p>
+  </article>
+  <article>
+    <p class="kicker">Logic</p>
+    <p class="score">{% if summary.logic_score is none %}—{% else %}{{ summary.logic_score }}%{% endif %}</p>
+    <p>Recent accuracy on short challenges. Longer reasoning problems are recorded and do not change this number.</p>
+    <p class="meta">{{ summary.logic_done }} short challenge{{ '' if summary.logic_done == 1 else 's' }} finished</p>
+  </article>
+</section>
+<section class="panel">
+  <h2>Your Gemini key</h2>
+  {% if key %}
+  <p>The assistant is using the key ending {{ key.fingerprint }}.</p>
+  {% else %}
+  <p>Chess, training, and lessons are open. The assistant answers only after you save your own key.</p>
+  <a class="button" href="{{ url_for('account') }}">Configure API Key</a>
+  {% endif %}
+</section>
+<section class="split">
+  <article>
+    <h2>{% if summary.chess_active %}Continue the chess puzzle{% else %}Next chess puzzle{% endif %}</h2>
+    {% if summary.next_puzzle %}
+    <p>Difficulty {{ summary.next_puzzle.rating }}. {{ summary.next_puzzle.themes[:3]|join(', ') }}</p>
+    <a class="button" href="{{ url_for('chess') }}">Open the board</a>
+    {% else %}
+    <p>No chess puzzles are loaded.</p>
+    {% endif %}
+  </article>
+  <article>
+    <h2>{% if summary.logic_active %}Continue the logic exercise{% else %}Next logic exercise{% endif %}</h2>
+    {% if summary.next_logic %}
+    <p>{{ 'Short challenge' if summary.next_logic.kind == 'short' else 'Longer problem' }}</p>
+    <a class="button" href="{{ url_for('logic') }}">Open the exercise</a>
+    {% else %}
+    <p>No logic exercises are loaded.</p>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}

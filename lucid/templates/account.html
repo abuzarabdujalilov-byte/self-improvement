@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Key · Lucid{% endblock %}
+{% block body %}
+<section class="panel narrow">
+  <p class="kicker">Your Gemini key</p>
+  <h1>The assistant runs on your account.</h1>
+  {% if key %}
+  <p>A key ending in <strong>{{ key.fingerprint }}</strong> is encrypted for this sign-in. The current model is <span class="mono">{{ key.model_id }}</span>.</p>
+  <form method="post" action="{{ url_for('update_model') }}" class="stack">
+    <fieldset>
+      <legend>Model for your next message</legend>
+      {% for model in models %}
+      <label class="choice"><input type="radio" name="model_id" value="{{ model.id }}" {% if selected == model.id %}checked{% endif %} /> <span><strong>{{ model.label }}</strong><br /><span class="mono">{{ model.id }}</span></span></label>
+      {% endfor %}
+    </fieldset>
+    <button class="button" type="submit">Use this model</button>
+  </form>
+  <form method="post" action="{{ url_for('delete_key') }}">
+    <button class="button quiet" type="submit">Remove key</button>
+  </form>
+  {% else %}
+  <ol>
+    <li>Open <a href="https://aistudio.google.com/app/apikey">Google AI Studio</a> and sign in.</li>
+    <li>Create or copy an API key for a project you recognise.</li>
+    <li>Paste it here and choose a model. Usage stays on that Google project, including any free allowance.</li>
+  </ol>
+  {% endif %}
+  <form method="post" class="stack">
+    <label for="api-key">{{ 'Replace key' if key else 'Google AI Studio API key' }}</label>
+    <input id="api-key" name="api_key" type="password" autocomplete="off" required />
+    {% if not key %}
+    <fieldset>
+      <legend>Model</legend>
+      {% for model in models %}
+      <label class="choice"><input type="radio" name="model_id" value="{{ model.id }}" {% if model.id == default_model_id %}checked{% endif %} /> <span><strong>{{ model.label }}</strong> — {{ model.blurb }}</span></label>
+      {% endfor %}
+    </fieldset>
+    {% endif %}
+    <button class="button" type="submit">{{ 'Replace key' if key else 'Check key and save' }}</button>
+  </form>
+</section>
+{% endblock %}

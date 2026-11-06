@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Learn · Lucid{% endblock %}
+{% block place %}Learn{% endblock %}
+{% block body %}
+<p class="kicker">Readings</p>
+<h1>Learn</h1>
+<form method="get" class="two">
+  <div>
+    <label for="q">Search</label>
+    <input id="q" name="q" value="{{ query }}" />
+  </div>
+  <div>
+    <label for="category">Category</label>
+    <select id="category" name="category">
+      <option value="">All</option>
+      {% for item in categories %}
+      <option value="{{ item }}" {{ 'selected' if item == category else '' }}>{{ item }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class="button" type="submit">Filter</button>
+</form>
+<div class="list">
+  {% for lesson in lessons %}
+  <article class="panel row">
+    <div>
+      <h2><a href="{{ url_for('lesson', lesson_id=lesson.id) }}">{{ lesson.title }}</a></h2>
+      <p>{{ lesson.category }} · {{ lesson.level }} · {{ lesson.minutes }} min{% if lesson.id in finished %} · finished{% endif %}{% if lesson.id in bookmarks %} · bookmarked{% endif %}</p>
+    </div>
+  </article>
+  {% else %}
+  <p>No lessons match that search.</p>
+  {% endfor %}
+</div>
+{% endblock %}

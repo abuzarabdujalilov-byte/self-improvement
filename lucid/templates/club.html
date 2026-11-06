@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ club.name }} · Lucid{% endblock %}
+{% block place %}Club {{ club.name }}{% endblock %}
+{% block body %}
+<p class="kicker">Club</p>
+<h1>{{ club.name }}</h1>
+<p>{{ club.description }}</p>
+{% if not joined %}
+<form method="post" action="{{ url_for('club_join', slug=club.slug) }}"><button class="button" type="submit">Join</button></form>
+{% endif %}
+<section class="two">
+  <article class="panel">
+    <h2>Members by rating</h2>
+    <ol class="moves">
+      {% for member in members %}
+      <li><a href="{{ url_for('public_profile', username=member.username) }}">{{ member.username }}</a><span>{{ member.chess_elo }}</span></li>
+      {% endfor %}
+    </ol>
+  </article>
+  <article class="panel">
+    <h2>Discussion</h2>
+    {% if joined %}
+    <form method="post" action="{{ url_for('club_thread', slug=club.slug) }}">
+      <label for="title">Title</label>
+      <input id="title" name="title" />
+      <label for="body">Message</label>
+      <textarea id="body" name="body" rows="4"></textarea>
+      <button class="button" type="submit">Post</button>
+    </form>
+    {% endif %}
+    {% for thread in threads %}
+    <article>
+      <h3>{{ thread.title }}</h3>
+      <p>{{ thread.body }}</p>
+      <p class="meta">{{ thread.username }} · {{ thread.replies }} replies</p>
+    </article>
+    {% else %}
+    <p>No messages yet.</p>
+    {% endfor %}
+  </article>
+</section>
+{% endblock %}

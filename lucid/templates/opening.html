@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "_piece.html" import glyph %}
+{% block title %}{{ opening.name }} · Lucid{% endblock %}
+{% block place %}Opening {{ opening.name }}{% endblock %}
+{% block body %}
+<p class="kicker">{{ opening.level }} · {{ opening.category }}</p>
+<h1>{{ opening.name }}</h1>
+<p>{{ opening.idea }}</p>
+<p class="note">{{ opening.mistakes }}</p>
+<section class="play-layout">
+  <div class="board" aria-label="Opening board">
+    {% for row in fen_view.rows %}
+    <div class="rank">
+      {% for square in row %}
+      <div class="square {{ 'dark' if square.dark else 'light' }}">{{ glyph(square.piece) }}</div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  <aside class="panel">
+    {% if done %}
+    <h2>Line complete</h2>
+    <p>You played every move in this line.</p>
+    {% else %}
+    <h2>Play {{ expected }}</h2>
+    <p>Move {{ ply + 1 }} of {{ opening.line|length }}. Type the move in coordinate form, such as e2e4.</p>
+    <form method="post">
+      <label for="uci">Move</label>
+      <input id="uci" name="uci" autocomplete="off" />
+      <button class="button" type="submit">Play</button>
+    </form>
+    {% endif %}
+    <ol class="moves">
+      {% for step in opening.line %}
+      <li><span>{{ step.san }}</span><span>{{ step.note }}</span></li>
+      {% endfor %}
+    </ol>
+  </aside>
+</section>
+{% endblock %}

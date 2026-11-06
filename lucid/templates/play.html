@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% from "_piece.html" import glyph %}
+{% block title %}Game · Lucid{% endblock %}
+{% block place %}Chess game {{ game.code }}{% endblock %}
+{% block body %}
+<p class="kicker">{{ names.white }} vs {{ names.black }} · {{ game.mode }}{% if game.ai_level %} · {{ game.ai_level }}{% endif %}</p>
+<h1>{% if game.result %}{{ game.result }}{% elif waiting %}Waiting{% else %}{{ view.turn|capitalize }} to move{% endif %}</h1>
+{% if game.reason %}<p>{{ game.reason }}</p>{% endif %}
+{% if waiting %}
+<p>Send this page to the other player. They join as Black. The clock starts when they join. This is a shared link with refresh, not a live matchmaking queue.</p>
+{% if game.white_id != g.user.id %}
+<form method="post" action="{{ url_for('play_join', code=game.code) }}"><button class="button" type="submit">Join as Black</button></form>
+{% endif %}
+{% endif %}
+<section class="play-layout">
+  <div>
+    <div class="clocks">
+      <div class="clock {{ 'active' if view.turn == 'black' and game.status == 'active' else '' }}" id="black-clock" data-ms="{{ view.black_ms }}"><span>{{ names.black }}</span> <strong></strong></div>
+      <div class="clock {{ 'active' if view.turn == 'white' and game.status == 'active' else '' }}" id="white-clock" data-ms="{{ view.white_ms }}"><span>{{ names.white }}</span> <strong></strong></div>
+    </div>
+    <div class="board-wrap" data-live="{{ 'yes' if view.can_move else 'no' }}" data-running="{{ 'yes' if game.status == 'active' else 'no' }}" data-turn="{{ view.turn }}">
+      <div class="board" role="grid" aria-label="Chessboard">
+        {% for row in view.board.rows %}
+        <div class="rank">
+          {% for square in row %}
+          <button type="button" class="square {{ 'dark' if square.dark else 'light' }} {{ 'last' if square.name in view.last else '' }} {{ 'check' if square.name == view.check else '' }}" data-square="{{ square.name }}" aria-label="{{ square.name }} {{ square.label }}">
+            {% if square.piece %}{{ glyph(square.piece) }}{% endif %}
+          </button>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <p class="meta">Captured by White: {{ view.captured.by_white|join(' ') or '—' }} · by Black: {{ view.captured.by_black|join(' ') or '—' }}</p>
+  </div>
+  <aside class="panel">
+    <h2>Moves</h2>
+    <ol class="moves">
+      {% for move in view.history %}
+      <li><span>{% if loop.index0 is even %}{{ loop.index0 // 2 + 1 }}.{% endif %} {{ move.san }}</span></li>
+      {% else %}
+      <li>No moves yet.</li>
+      {% endfor %}
+    </ol>
+    {% if view.can_move %}
+    <form id="move-form" method="post" action="{{ url_for('play_move', code=game.code) }}">
+      <input type="hidden" id="uci" name="uci" />
+    </form>
+    <form method="post" action="{{ url_for('play_resign', code=game.code) }}">
+      <button class="button quiet" type="submit">Resign</button>
+    </form>
+    {% elif game.status == 'active' %}
+    <p>Waiting for the other side. Refresh the page to see the move.</p>
+    <form id="move-form" method="post" action="{{ url_for('play_move', code=game.code) }}" hidden>
+      <input id="uci" name="uci" />
+    </form>
+    {% endif %}
+    <p><a href="{{ url_for('play_pgn', code=game.code) }}">Download PGN</a></p>
+    <p><a href="{{ url_for('play_home') }}">Back to chess</a></p>
+  </aside>
+</section>
+<script id="legal" type="application/json">{{ view.legal|tojson }}</script>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/play.js') }}"></script>
+{% endblock %}

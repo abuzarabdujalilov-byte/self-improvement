@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }} · Lucid{% endblock %}
+{% block place %}Profile {{ user.username }}{% endblock %}
+{% block body %}
+<p class="kicker">{{ view.rank }} · level {{ view.level }}</p>
+<div class="row">
+  <h1>{{ user.username }}</h1>
+  <div class="emblem" aria-hidden="true">{{ user.emblem[0]|upper }}</div>
+</div>
+<p>{{ user.bio or 'No bio yet.' }}</p>
+<section class="scores">
+  <article><p class="kicker">Chess rating</p><p class="score">{{ user.chess_elo }}</p></article>
+  <article><p class="kicker">Experience</p><p class="score">{{ user.xp }}</p><p class="meta">Streak {{ user.streak }} · best {{ user.longest_streak }}</p></article>
+</section>
+<section class="two">
+  <article class="panel">
+    <h2>Games</h2>
+    <ul class="moves">
+      {% for game in view.games %}
+      <li><span>{{ game.mode }} {{ game.result or game.status }}</span></li>
+      {% else %}<li>No games yet.</li>{% endfor %}
+    </ul>
+  </article>
+  <article class="panel">
+    <h2>Training and study</h2>
+    {% for kind, row in view.training.items() %}
+    <p>{{ kind }}: {{ row.correct }}/{{ row.total }}</p>
+    {% else %}<p>No training sessions yet.</p>{% endfor %}
+    <p>{{ view.lessons }} lesson{{ '' if view.lessons == 1 else 's' }} finished.</p>
+    <h3>Clubs</h3>
+    {% for club in view.clubs %}<p><a href="{{ url_for('club', slug=club.slug) }}">{{ club.name }}</a></p>{% else %}<p>No clubs.</p>{% endfor %}
+  </article>
+</section>
+<section class="panel">
+  <h2>Achievements</h2>
+  {% for code, label in view.achievements %}<p>{{ label }}</p>{% else %}<p>None yet. They are awarded for games, puzzles, lessons, clubs, streaks, and training.</p>{% endfor %}
+</section>
+{% if own %}
+<form class="panel" method="post" action="{{ url_for('profile_save') }}">
+  <h2>Edit</h2>
+  <label for="username">Username</label>
+  <input id="username" name="username" value="{{ user.username }}" />
+  <label for="bio">Bio</label>
+  <textarea id="bio" name="bio" rows="3">{{ user.bio }}</textarea>
+  <label for="emblem">Mark</label>
+  <select id="emblem" name="emblem">
+    {% for emblem in emblems %}<option value="{{ emblem }}" {{ 'selected' if emblem == user.emblem else '' }}>{{ emblem }}</option>{% endfor %}
+  </select>
+  <button class="button" type="submit">Save</button>
+</form>
+{% endif %}
+{% endblock %}

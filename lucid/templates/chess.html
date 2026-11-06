@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "_piece.html" import glyph %}
+{% block title %}Chess · Lucid{% endblock %}
+{% block place %}Chess puzzle{% endblock %}
+{% block body %}
+{% if not puzzle %}
+<section class="panel"><h1>No puzzle is available.</h1><p>{{ notice }}</p></section>
+{% else %}
+<section class="practice">
+  <div>
+    <p class="kicker">Chess puzzle · difficulty {{ puzzle.rating }}</p>
+    <h1>{% if chess_session.status == 'active' %}Find the move{% elif chess_session.status == 'solved' %}Solved{% else %}Missed{% endif %}</h1>
+    <p>{{ puzzle.themes[:4]|join(' · ') }}</p>
+    <div class="board-wrap" data-turn="{{ board.turn }}" data-live="{{ 'yes' if chess_session.status == 'active' else 'no' }}">
+      <div class="board" role="grid" aria-label="Chess position, {{ board.turn }} to move">
+        {% for row in board.rows %}
+        <div class="rank" role="row">
+          {% for square in row %}
+          <button type="button" class="square {{ 'dark' if square.dark else 'light' }}" data-square="{{ square.name }}" data-piece="{{ square.piece }}" aria-label="{{ square.name }} {{ square.label }}">
+            {% if square.piece %}{{ glyph(square.piece) }}{% endif %}
+          </button>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <p class="credit">Puzzle {{ puzzle.id }} from the <a href="https://lichess.org/training/{{ puzzle.id }}">Lichess puzzle database</a>, used under CC0.</p>
+  </div>
+  <aside class="panel">
+    {% if chess_session.status == 'active' %}
+    <p>{{ board.turn|capitalize }} to move. Select a piece, then the square it moves to. Or type the move.</p>
+    <form id="move-form" method="post" action="{{ url_for('chess_move') }}">
+      <label for="uci">Move</label>
+      <input id="uci" name="uci" autocomplete="off" placeholder="e2e4" />
+      <button class="button" type="submit">Play move</button>
+    </form>
+    {% else %}
+    <form method="post" action="{{ url_for('chess_next') }}">
+      <button class="button" type="submit">Next puzzle</button>
+    </form>
+    {% endif %}
+    <form method="post" action="{{ url_for('use_context') }}">
+      <input type="hidden" name="kind" value="chess" />
+      <input type="hidden" name="item_id" value="{{ puzzle.id }}" />
+      <button class="button quiet" type="submit">Ask the assistant about this puzzle</button>
+    </form>
+  </aside>
+</section>
+{% endif %}
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/board.js') }}"></script>{% endblock %}

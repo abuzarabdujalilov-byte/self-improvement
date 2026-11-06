@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson.title }} · Lucid{% endblock %}
+{% block place %}Lesson {{ lesson.title }}{% endblock %}
+{% block body %}
+<p class="kicker">{{ lesson.category }} · {{ lesson.level }}</p>
+<h1>{{ lesson.title }}</h1>
+{% for paragraph in lesson.body %}<p>{{ paragraph }}</p>{% endfor %}
+<div class="actions">
+  <form method="post" action="{{ url_for('lesson_bookmark', lesson_id=lesson.id) }}">
+    <button class="button quiet" type="submit">{{ 'Remove bookmark' if bookmarked else 'Bookmark' }}</button>
+  </form>
+  {% if not finished %}
+  <form method="post" action="{{ url_for('lesson_finish', lesson_id=lesson.id) }}">
+    <button class="button" type="submit">Mark as read</button>
+  </form>
+  {% else %}
+  <p>Finished.</p>
+  {% endif %}
+</div>
+{% if related %}
+<h2>Related</h2>
+<ul>{% for item in related %}<li><a href="{{ url_for('lesson', lesson_id=item.id) }}">{{ item.title }}</a></li>{% endfor %}</ul>
+{% endif %}
+{% endblock %}
